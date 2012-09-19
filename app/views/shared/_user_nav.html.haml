@@ -1,0 +1,55 @@
+#user_nav
+  -if user_signed_in?
+    .user_drop_down
+      .user_link
+        .screen_name
+          =link_to current_user.username, current_user
+      .sub_links{ style: "display:none;"}
+        .triangle-border
+        .triangle
+        =link_to "Logout", destroy_user_session_path, method: :delete
+        =link_to "Edit Profile", edit_user_path(current_user)
+        =link_to "View Profile", current_user
+        -if current_user.admin?
+          =link_to "Admin", admin_path
+
+  -else
+    .login_link{ rel: "#login_overlay"}
+      Login / Register
+.overlay#login_overlay
+  %ul
+    %li= link_to "Login with Facebook", user_omniauth_authorize_path(:facebook), class: "facebook_connect_button"
+    %li.divider
+      or
+    .lower_links
+      %li= link_to "Login via Footnote", "#", class: "button login_form_show"
+      %li= link_to "Register", "#", class: "button register_form_show"
+    .login_forms
+      #login_form
+        .form_title
+          Login
+        = form_tag session_path(:user) do
+          %p
+            = text_field_tag 'user[username]', nil, placeholder: "Username"
+          %p
+            = password_field_tag 'user[password]', nil, placeholder: "Password"
+          %p
+            = check_box_tag 'user[remember_me]'
+            = label_tag 'user[remember_me]', 'Remember me'
+          %p
+            = submit_tag "Login"
+            
+      #register_form
+        .form_title
+          Register
+        = form_tag registration_path(:user) do
+          %p
+            = text_field_tag 'user[username]', nil, placeholder: "Username"
+          %p
+            = email_field_tag 'user[email]', nil, placeholder: "Email"
+          %p
+            = password_field_tag 'user[password]', nil, placeholder: "Password"
+          %p
+            = password_field_tag 'user[password_confirmation]', nil, placeholder: "Password Confirmation"
+          %p
+            = submit_tag "Register"

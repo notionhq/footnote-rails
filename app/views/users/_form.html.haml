@@ -1,0 +1,12 @@
+#edit_user_form
+  %h2 Edit Your Account
+    %p
+      =f.text_field :username, placeholder: "User Name"
+    %p
+      =f.email_field :email, placeholder: "Email Address"
+    %p
+      =f.submit
+    
+  %p=link_to "Change Password", edit_user_registration_path
+  %p
+    Unhappy? #{link_to "Cancel my account", registration_path(@user), :data => { :confirm => "Are you sure?" }, :method => :delete}.
