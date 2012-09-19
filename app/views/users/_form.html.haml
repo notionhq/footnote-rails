@@ -1,5 +1,6 @@
 #edit_user_form
   %h2 Edit Your Account
+  = form_for @user do |f|
     %p
       =f.text_field :username, placeholder: "User Name"
     %p

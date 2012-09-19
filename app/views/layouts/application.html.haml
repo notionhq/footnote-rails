@@ -6,9 +6,10 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    =render "shared/user_nav"
-    -if notice
-      .notice=notice
-    -if alert
-      .alert=alert
-    = yield
+    .container
+      =render "shared/user_nav"
+      -if notice
+        .notice=notice
+      -if alert
+        .alert=alert
+      = yield
